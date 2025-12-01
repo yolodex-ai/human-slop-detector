@@ -45,7 +45,7 @@ detect("asdf@jkl.com");
 
 ## real-world test results
 
-we tested against 100 real-world examples from twitter, reddit, github and signup forms:
+we tested against like 100 real-world examples from twitter, reddit, github and signup forms:
 
 | category               | accuracy | notes                        |
 | ---------------------- | -------- | ---------------------------- |
@@ -57,7 +57,7 @@ we tested against 100 real-world examples from twitter, reddit, github and signu
 | multilingual gibberish | 100%     | 20 languages supported       |
 | **overall**            | **100%** | probably overfitted          |
 
-**want to help?** we need more real-world keysmashes from the wild. if you've seen some particularly unhinged keyboard violence on twitter, or your users are submitting creative slop to your forms, [add them to keysmashes.txt](https://github.com/yolodex-ai/human-slop-detector/edit/main/keysmashes.txt) - one keysmash per line, no questions asked.
+**want to help?** we need more keysmashes from the wild to improve coverage, [open keysmashes.txt and smash your keyboard](https://github.com/yolodex-ai/human-slop-detector/edit/main/keysmashes.txt) - one per line, no questions asked.
 
 ## api
 

@@ -1,0 +1,42 @@
+name: Score Keysmashes
+
+on:
+  pull_request:
+    paths:
+      - 'keysmashes.txt'
+  workflow_dispatch:
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Score keysmashes
+        id: score
+        run: |
+          npm install human-slop-detector
+          node scripts/score-keysmashes.js > results.txt
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          cat results.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const results = `${{ steps.score.outputs.results }}`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: results
+            });
+

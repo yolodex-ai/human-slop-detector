@@ -1,0 +1,42 @@
+const fs = require('fs');
+const { detect } = require('human-slop-detector');
+
+const file = fs.readFileSync('keysmashes.txt', 'utf-8');
+const lines = file.split('\n')
+  .map(l => l.trim())
+  .filter(l => l && !l.startsWith('#'));
+
+let detected = 0;
+let human = 0;
+const results = [];
+
+for (const keysmash of lines) {
+  const r = detect(keysmash);
+  if (r.isSlop) detected++;
+  if (r.isLikelyHuman) human++;
+  results.push({ keysmash, ...r });
+}
+
+const detectionRate = ((detected / lines.length) * 100).toFixed(1);
+const humanRate = ((human / lines.length) * 100).toFixed(1);
+
+console.log(`## 🎹 keysmash detection report\n`);
+console.log(`| metric | score |`);
+console.log(`|--------|-------|`);
+console.log(`| keysmashes tested | ${lines.length} |`);
+console.log(`| detected as slop | ${detected} (${detectionRate}%) |`);
+console.log(`| identified as human | ${human} (${humanRate}%) |`);
+console.log(`\n### breakdown\n`);
+console.log(`| keysmash | slop? | human? | confidence |`);
+console.log(`|----------|-------|--------|------------|`);
+
+for (const r of results) {
+  const slop = r.isSlop ? '✅' : '❌';
+  const hum = r.isLikelyHuman ? '✅' : '➖';
+  console.log(`| \`${r.keysmash}\` | ${slop} | ${hum} | ${r.confidence} |`);
+}
+
+if (detected < lines.length) {
+  console.log(`\n⚠️ ${lines.length - detected} keysmash(es) not detected - we might need to improve the algorithm!`);
+}
+
