@@ -34,6 +34,8 @@ export interface DetectResult {
   isGibberish: boolean;
   /** Whether this slop is likely from a human (vs random/bot generation). Only true if isSlop is also true. */
   isLikelyHumanSlop: boolean;
+  /** Rage score from 0-1 indicating how angry the human probably is. Only meaningful for keysmashes. */
+  rageScore: number;
   /** Keysmash confidence level from 0 to 1 */
   confidence: number;
   /** Gibberish confidence level from 0 to 1 */
@@ -150,6 +152,68 @@ function normalizeHomeRowConcentration(concentration: number): number {
 }
 
 /**
+ * Calculate rage score based on keysmash patterns
+ * Higher scores indicate more frustration/anger
+ */
+function calculateRageScore(
+  input: string,
+  factors: {
+    homeRowConcentration: number;
+    repetition: number;
+    handClustering: number;
+    limitedVowels: number;
+    keyboardWalk: number;
+    proximity: number;
+    entropy: number;
+  }
+): number {
+  // 1. Length factor - longer keysmashes = more sustained rage (max at ~20 chars)
+  const lengthFactor = Math.min(1, input.replace(/[^a-zA-Z]/g, '').length / 20);
+  
+  // 2. Caps ratio - UPPERCASE = SCREAMING
+  const letters = input.replace(/[^a-zA-Z]/g, '');
+  const uppercase = letters.replace(/[^A-Z]/g, '').length;
+  const capsRatio = letters.length > 0 ? uppercase / letters.length : 0;
+  
+  // 3. Home row concentration - high = aggressive home row smashing
+  const homeRowFactor = factors.homeRowConcentration;
+  
+  // 4. Repetition - rhythmic aggressive mashing
+  const repetitionFactor = factors.repetition;
+  
+  // 5. Hand clustering - one-handed rage (other hand facepalming)
+  const handClusterFactor = Math.max(0, (factors.handClustering - 0.5) * 2);
+  
+  // 6. Limited vowels - not even trying to communicate
+  const limitedVowelFactor = factors.limitedVowels;
+  
+  // 7. Chaos factor - keyboard walks are controlled frustration
+  // High proximity but low keyboard walk = chaotic rage
+  const chaosFactor = factors.keyboardWalk < 0.3 
+    ? (1 - factors.keyboardWalk) * factors.proximity * 0.5 
+    : 0;
+  
+  // 8. Entropy factor - medium-high entropy = frantic uncontrolled mashing
+  // Very low entropy (repeated chars) or very high (random) = less rage-y
+  const entropyFactor = factors.entropy > 0.3 && factors.entropy < 0.8 
+    ? factors.entropy 
+    : factors.entropy * 0.5;
+  
+  // Weighted combination
+  const rageScore =
+    lengthFactor * 0.20 +        // length is a strong indicator
+    capsRatio * 0.25 +           // CAPS = ANGER
+    homeRowFactor * 0.12 +       // home row smashing
+    repetitionFactor * 0.12 +    // rhythmic rage
+    handClusterFactor * 0.08 +   // one-handed frustration
+    limitedVowelFactor * 0.08 +  // incoherent rage
+    chaosFactor * 0.10 +         // chaotic vs controlled
+    entropyFactor * 0.05;        // frantic patterns
+  
+  return Math.min(1, Math.max(0, rageScore));
+}
+
+/**
  * Core detection function
  */
 export function detect(input: string, options: DetectOptions = {}): DetectResult {
@@ -158,7 +222,7 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
   
   // Handle empty or very short strings
   if (!input || input.length < 2) {
-    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, confidence: 0, gibberishConfidence: 0 };
+    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, rageScore: 0, confidence: 0, gibberishConfidence: 0 };
   }
   
   // Handle email addresses specially
@@ -185,7 +249,7 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
   
   // If the cleaned text is too short, assume not a keysmash
   if (textToAnalyze.length < 3) {
-    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, confidence: 0, gibberishConfidence: 0 };
+    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, rageScore: 0, confidence: 0, gibberishConfidence: 0 };
   }
   
   // Calculate all factors
@@ -288,11 +352,17 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
     }
   }
   
+  // Calculate rage score (only meaningful for keysmashes)
+  const rageScore = isKeysmash 
+    ? calculateRageScore(input, factors)
+    : 0;
+  
   return {
     isSlop,
     isKeysmash,
     isGibberish,
     isLikelyHumanSlop,
+    rageScore: Math.round(rageScore * 100) / 100,
     confidence: Math.round(confidence * 100) / 100,
     gibberishConfidence: Math.round(gibberishConfidence * 100) / 100,
     factors,

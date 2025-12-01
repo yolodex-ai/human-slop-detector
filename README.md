@@ -75,9 +75,29 @@ result.isSlop; // true - it's slop (keysmash OR gibberish)
 result.isKeysmash; // true - keyboard-based pattern
 result.isGibberish; // false - not random gibberish
 result.isLikelyHumanSlop; // true - probably a frustrated human
+result.rageScore; // 0.29 - frustrated but not furious
 result.confidence; // 0.98 - very confident
 result.gibberishConfidence; // 0.76 - also looks gibberish-y
 ```
+
+### rage score
+
+how angry is the human? we analyze keyboard patterns to estimate frustration levels:
+
+| input | rage | interpretation |
+|-------|------|----------------|
+| `qwerty` | 0.11 | mild annoyance |
+| `asdfghjkl` | 0.29 | frustrated |
+| `ASDFGHJKL` | 0.54 | angry |
+| `asjkdfhaskjdfhaskjdfh` | 0.44 | angry |
+| `ASDFGHJKLASDFGHJKL` | 0.67 | very angry |
+
+**rage factors:**
+- **length** - longer keysmashes = more sustained frustration
+- **CAPS LOCK** - uppercase = SCREAMING
+- **repetition** - rhythmic aggressive patterns
+- **chaos** - controlled keyboard walks vs frantic mashing
+- **hand clustering** - one-handed rage (other hand facepalming)
 
 ### `detectSentence(input, options?)`
 
