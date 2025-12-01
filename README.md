@@ -12,6 +12,16 @@ this library aims to detect the most egregious human slop so you can protect you
 npm install human-slop-detector
 ```
 
+## quick try
+
+```bash
+npx human-slop-detector asdf@jkl.com
+# => { "isSlop": true, "isLikelyHuman": true, "confidence": 1 }
+
+npx human-slop-detector john.doe@gmail.com
+# => { "isSlop": false, "isLikelyHuman": false, "confidence": 0.1 }
+```
+
 ## usage
 
 ```typescript
@@ -45,13 +55,12 @@ detect("asdf@jkl.com");
 
 ## real-world test results
 
-we tested against like 100 real-world examples from twitter, reddit, github and signup forms:
+we tested against like 100 real-world examples from twitter, reddit, github and signup forms then tried a simple openai prompt vs this libary:
 
 | metric    | gpt-5.1 | human-slop-detector |
 | --------- | ------- | ------------------- |
 | precision | 88.89%  | 96.97%              |
 | recall    | 24.24%  | 96.97%              |
-| f1 score  | 38.10%  | 96.97%              |
 | accuracy  | 74.00%  | 98.00%              |
 
 _ground truth: what a human (me) thinks is human slop. run `npx tsx scripts/benchmark.ts` to regenerate._
