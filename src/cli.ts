@@ -16,7 +16,7 @@ console.log(JSON.stringify({
   isSlop: result.isSlop,
   isKeysmash: result.isKeysmash,
   isGibberish: result.isGibberish,
-  isLikelyHuman: result.isLikelyHuman,
+  isLikelyHumanSlop: result.isLikelyHumanSlop,
   confidence: result.confidence,
 }, null, 2));
 

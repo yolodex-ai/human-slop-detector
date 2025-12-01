@@ -393,7 +393,7 @@ describe("keysmash-detector", () => {
       let correct = 0;
       humanTests.forEach((test) => {
         const result = detect(test.input);
-        if (result.isSlop && result.isLikelyHuman) {
+        if (result.isSlop && result.isLikelyHumanSlop) {
           correct++;
         }
       });

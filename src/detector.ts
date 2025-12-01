@@ -32,8 +32,8 @@ export interface DetectResult {
   isKeysmash: boolean;
   /** Whether the input is likely gibberish (random but not keyboard-based) */
   isGibberish: boolean;
-  /** Whether this slop is likely from a human (vs random/bot generation) */
-  isLikelyHuman: boolean;
+  /** Whether this slop is likely from a human (vs random/bot generation). Only true if isSlop is also true. */
+  isLikelyHumanSlop: boolean;
   /** Keysmash confidence level from 0 to 1 */
   confidence: number;
   /** Gibberish confidence level from 0 to 1 */
@@ -158,7 +158,7 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
   
   // Handle empty or very short strings
   if (!input || input.length < 2) {
-    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHuman: false, confidence: 0, gibberishConfidence: 0 };
+    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, confidence: 0, gibberishConfidence: 0 };
   }
   
   // Handle email addresses specially
@@ -185,7 +185,7 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
   
   // If the cleaned text is too short, assume not a keysmash
   if (textToAnalyze.length < 3) {
-    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHuman: false, confidence: 0, gibberishConfidence: 0 };
+    return { isSlop: false, isKeysmash: false, isGibberish: false, isLikelyHumanSlop: false, confidence: 0, gibberishConfidence: 0 };
   }
   
   // Calculate all factors
@@ -274,23 +274,25 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
   const isGibberish = gibberishConfidence >= threshold && !isKeysmash;
   const isSlop = isKeysmash || isGibberish;
   
-  // Determine if slop is likely from a human
+  // Determine if slop is likely from a human (only meaningful if isSlop is true)
   // Keysmashes with high home row concentration and proximity are very human
   // Random gibberish with no keyboard pattern is more likely bot/random generation
-  let isLikelyHuman = false;
-  if (isKeysmash) {
-    // High proximity + home row = human mashing keyboard
-    isLikelyHuman = factors.proximity > 0.5 || factors.homeRowConcentration > 0.5 || factors.keyboardWalk > 0.3;
-  } else if (isGibberish) {
-    // Gibberish is less likely human unless it has some keyboard patterns
-    isLikelyHuman = factors.proximity > 0.3 && factors.homeRowConcentration > 0.3;
+  let isLikelyHumanSlop = false;
+  if (isSlop) {
+    if (isKeysmash) {
+      // High proximity + home row = human mashing keyboard
+      isLikelyHumanSlop = factors.proximity > 0.5 || factors.homeRowConcentration > 0.5 || factors.keyboardWalk > 0.3;
+    } else if (isGibberish) {
+      // Gibberish is less likely human unless it has some keyboard patterns
+      isLikelyHumanSlop = factors.proximity > 0.3 && factors.homeRowConcentration > 0.3;
+    }
   }
   
   return {
     isSlop,
     isKeysmash,
     isGibberish,
-    isLikelyHuman,
+    isLikelyHumanSlop,
     confidence: Math.round(confidence * 100) / 100,
     gibberishConfidence: Math.round(gibberishConfidence * 100) / 100,
     factors,
@@ -300,8 +302,8 @@ export function detect(input: string, options: DetectOptions = {}): DetectResult
 export interface SentenceResult {
   /** Whether the sentence contains slop */
   isSlop: boolean;
-  /** Whether it's likely from a human */
-  isLikelyHuman: boolean;
+  /** Whether slop is likely from a human. Only true if isSlop is also true. */
+  isLikelyHumanSlop: boolean;
   /** Overall slop score for the sentence */
   slopScore: number;
   /** Number of slop words detected */
@@ -331,7 +333,7 @@ export function detectSentence(input: string, options: DetectOptions = {}): Sent
   if (words.length === 0) {
     return {
       isSlop: false,
-      isLikelyHuman: false,
+      isLikelyHumanSlop: false,
       slopScore: 0,
       slopWordCount: 0,
       totalWords: 0,
@@ -363,13 +365,13 @@ export function detectSentence(input: string, options: DetectOptions = {}): Sent
   // Likely human if slop words have keyboard patterns
   const humanSlopWords = slopWords.filter(w => {
     const r = detect(w.word, options);
-    return r.isLikelyHuman;
+    return r.isLikelyHumanSlop;
   });
-  const isLikelyHuman = humanSlopWords.length > slopWordCount * 0.5;
+  const isLikelyHumanSlop = isSlop && humanSlopWords.length > slopWordCount * 0.5;
   
   return {
     isSlop,
-    isLikelyHuman,
+    isLikelyHumanSlop,
     slopScore: Math.round(avgSlopScore * 100) / 100,
     slopWordCount,
     totalWords,

@@ -16,10 +16,7 @@ npm install human-slop-detector
 
 ```bash
 npx human-slop-detector asdf@jkl.com
-# => { "isSlop": true, "isLikelyHuman": true, "confidence": 1 }
-
-npx human-slop-detector john.doe@gmail.com
-# => { "isSlop": false, "isLikelyHuman": false, "confidence": 0.1 }
+# => { "isSlop": true, "isLikelyHumanSlop": true, "confidence": 1 }
 ```
 
 ## usage
@@ -29,18 +26,18 @@ import { detect, detectSentence } from "human-slop-detector";
 
 // detect single strings
 detect("asdfghjkl");
-// => { isSlop: true, isKeysmash: true, isLikelyHuman: true, confidence: 0.98 }
+// => { isSlop: true, isKeysmash: true, isLikelyHumanSlop: true, confidence: 0.98 }
 
 detect("hello world");
-// => { isSlop: false, isKeysmash: false, isLikelyHuman: false, confidence: 0.12 }
+// => { isSlop: false, isKeysmash: false, isLikelyHumanSlop: false, confidence: 0.12 }
 
 // detect whole sentences of slop
 detectSentence("asdf jkl qwerty hjkl");
-// => { isSlop: true, slopPercentage: 0.8, isLikelyHuman: true }
+// => { isSlop: true, slopPercentage: 0.8, isLikelyHumanSlop: true }
 
 // even catches sneaky email slop
 detect("asdf@jkl.com");
-// => { isSlop: true, isKeysmash: true, isLikelyHuman: true }
+// => { isSlop: true, isKeysmash: true, isLikelyHumanSlop: true }
 ```
 
 ## what it detects
@@ -77,7 +74,7 @@ const result = detect("asdfghjkl");
 result.isSlop; // true - it's slop (keysmash OR gibberish)
 result.isKeysmash; // true - keyboard-based pattern
 result.isGibberish; // false - not random gibberish
-result.isLikelyHuman; // true - probably a frustrated human
+result.isLikelyHumanSlop; // true - probably a frustrated human
 result.confidence; // 0.98 - very confident
 result.gibberishConfidence; // 0.76 - also looks gibberish-y
 ```

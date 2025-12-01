@@ -20,7 +20,7 @@ const results = [];
 for (const keysmash of lines) {
   const r = detect(keysmash);
   if (r.isSlop) detected++;
-  if (r.isLikelyHuman) human++;
+  if (r.isLikelyHumanSlop) human++;
   results.push({ keysmash, ...r });
 }
 
@@ -39,7 +39,7 @@ console.log(`|----------|-------|--------|------------|`);
 
 for (const r of results) {
   const slop = r.isSlop ? '✅' : '❌';
-  const hum = r.isLikelyHuman ? '✅' : '➖';
+  const hum = r.isLikelyHumanSlop ? '✅' : '➖';
   console.log(`| \`${r.keysmash}\` | ${slop} | ${hum} | ${r.confidence} |`);
 }
 
