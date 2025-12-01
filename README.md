@@ -1,6 +1,6 @@
 # human-slop-detector
 
-we talk a lot about ai slop these days. but you know what nobody talks about? **humans**. sloppy, keyboard-mashing, form-spamming _humans_.
+we talk a lot about ai slop these days. but but not so much **humans**. sloppy, keyboard-mashing, form-spamming _humans_.
 
 i still get humans slopping all over my signup forms. hammering my apis with `asdfghjkl`. registering with `qwerty@fghjkl.com`.
 
