@@ -1,0 +1,44 @@
+{
+  "name": "human-slop-detector",
+  "version": "1.0.0",
+  "description": "detect human slop: keysmashes, gibberish, and keyboard mashing from sloppy humans",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "keysmash",
+    "keyboard",
+    "gibberish",
+    "spam",
+    "slop",
+    "validation",
+    "email",
+    "human-detection",
+    "form-validation",
+    "bot-detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  }
+}
+
