@@ -1,10 +1,13 @@
 {
   "name": "human-slop-detector",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "detect human slop: keysmashes, gibberish, and keyboard mashing from sloppy humans",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "human-slop-detector": "./dist/cli.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
