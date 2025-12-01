@@ -37,17 +37,15 @@ jobs:
           npm install human-slop-detector > /dev/null
           cp $GITHUB_WORKSPACE/scripts/score-keysmashes.js .
           cp $GITHUB_WORKSPACE/new-keysmashes.txt .
-          node score-keysmashes.js new-keysmashes.txt > results.txt
-          echo "results<<EOF" >> $GITHUB_OUTPUT
-          cat results.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          node score-keysmashes.js new-keysmashes.txt > $GITHUB_WORKSPACE/results.txt
       
       - name: Comment on PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
-            const results = `${{ steps.score.outputs.results }}`;
+            const fs = require('fs');
+            const results = fs.readFileSync('results.txt', 'utf8');
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
