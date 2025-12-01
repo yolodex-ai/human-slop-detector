@@ -8,7 +8,7 @@ const lines = file.split('\n')
   .filter(l => l && !l.startsWith('#'));
 
 if (lines.length === 0) {
-  console.log('## 🎹 keysmash detection report\n');
+  console.log('## keysmash detection report\n');
   console.log('no new keysmashes to score!');
   process.exit(0);
 }
@@ -27,20 +27,21 @@ for (const keysmash of lines) {
 const detectionRate = ((detected / lines.length) * 100).toFixed(1);
 const humanRate = ((human / lines.length) * 100).toFixed(1);
 
-console.log(`## 🎹 your keysmash results\n`);
+console.log(`## your keysmash results\n`);
 console.log(`| metric | score |`);
 console.log(`|--------|-------|`);
 console.log(`| keysmashes added | ${lines.length} |`);
 console.log(`| detected as slop | ${detected} (${detectionRate}%) |`);
 console.log(`| identified as human | ${human} (${humanRate}%) |`);
 console.log(`\n### breakdown\n`);
-console.log(`| keysmash | slop? | human? | confidence |`);
-console.log(`|----------|-------|--------|------------|`);
+console.log(`| keysmash | slop? | human? | rage | confidence |`);
+console.log(`|----------|-------|--------|------|------------|`);
 
 for (const r of results) {
   const slop = r.isSlop ? '✅' : '❌';
   const hum = r.isLikelyHumanSlop ? '✅' : '➖';
-  console.log(`| \`${r.keysmash}\` | ${slop} | ${hum} | ${r.confidence} |`);
+  const rage = r.rageScore > 0 ? r.rageScore.toFixed(2) : '➖';
+  console.log(`| \`${r.keysmash}\` | ${slop} | ${hum} | ${rage} | ${r.confidence} |`);
 }
 
 if (detected < lines.length) {
