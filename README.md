@@ -6,6 +6,8 @@ i still get humans slopping all over my signup forms. hammering my apis with `as
 
 this library aims to detect the most egregious human slop so you can protect your expensive ai powered services from the chaos we humans like to bring to them.
 
+**want to help?** we need more keysmashes from the wild to improve coverage, [open keysmashes.txt and smash your keyboard](https://github.com/yolodex-ai/human-slop-detector/edit/main/keysmashes.txt) - one per line, no questions asked.
+
 ## install
 
 ```bash
@@ -84,15 +86,16 @@ result.gibberishConfidence; // 0.76 - also looks gibberish-y
 
 how angry is the human? we analyze keyboard patterns to estimate frustration levels:
 
-| input | rage | interpretation |
-|-------|------|----------------|
-| `qwerty` | 0.11 | mild annoyance |
-| `asdfghjkl` | 0.29 | frustrated |
-| `ASDFGHJKL` | 0.54 | angry |
-| `asjkdfhaskjdfhaskjdfh` | 0.44 | angry |
-| `ASDFGHJKLASDFGHJKL` | 0.67 | very angry |
+| input                   | rage | interpretation |
+| ----------------------- | ---- | -------------- |
+| `qwerty`                | 0.11 | mild annoyance |
+| `asdfghjkl`             | 0.29 | frustrated     |
+| `ASDFGHJKL`             | 0.54 | angry          |
+| `asjkdfhaskjdfhaskjdfh` | 0.44 | angry          |
+| `ASDFGHJKLASDFGHJKL`    | 0.67 | very angry     |
 
 **rage factors:**
+
 - **length** - longer keysmashes = more sustained frustration
 - **CAPS LOCK** - uppercase = SCREAMING
 - **repetition** - rhythmic aggressive patterns
