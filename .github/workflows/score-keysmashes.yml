@@ -13,16 +13,25 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
       
-      - name: Score keysmashes
+      - name: Get new keysmashes
+        id: diff
+        run: |
+          git diff origin/${{ github.base_ref }}...HEAD -- keysmashes.txt | grep "^+" | grep -v "^+++" | sed 's/^+//' | grep -v "^#" | grep -v "^$" > new-keysmashes.txt || true
+          echo "New keysmashes:"
+          cat new-keysmashes.txt
+      
+      - name: Score new keysmashes
         id: score
         run: |
           npm install human-slop-detector
-          node scripts/score-keysmashes.js > results.txt
+          node scripts/score-keysmashes.js new-keysmashes.txt > results.txt
           echo "results<<EOF" >> $GITHUB_OUTPUT
           cat results.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
