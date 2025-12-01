@@ -30,8 +30,14 @@ jobs:
       - name: Score new keysmashes
         id: score
         run: |
-          npm install human-slop-detector
-          node scripts/score-keysmashes.js new-keysmashes.txt > results.txt
+          # Install in temp dir to avoid local package.json conflict
+          mkdir -p /tmp/scorer
+          cd /tmp/scorer
+          npm init -y > /dev/null
+          npm install human-slop-detector > /dev/null
+          cp $GITHUB_WORKSPACE/scripts/score-keysmashes.js .
+          cp $GITHUB_WORKSPACE/new-keysmashes.txt .
+          node score-keysmashes.js new-keysmashes.txt > results.txt
           echo "results<<EOF" >> $GITHUB_OUTPUT
           cat results.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
