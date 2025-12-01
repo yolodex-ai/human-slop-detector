@@ -47,15 +47,14 @@ detect("asdf@jkl.com");
 
 we tested against like 100 real-world examples from twitter, reddit, github and signup forms:
 
-| category               | accuracy | notes                        |
-| ---------------------- | -------- | ---------------------------- |
-| twitter keysmashes     | 100%     | emotional keyboard violence  |
-| signup form abuse      | 100%     | `asdf@asdf.com` and friends  |
-| lorem ipsum            | 100%     | placeholder text detection   |
-| legitimate text        | 100%     | zero false positives ;)      |
-| human vs bot slop      | 97%      | distinguishing meatbag chaos |
-| multilingual gibberish | 100%     | 20 languages supported       |
-| **overall**            | **100%** | probably overfitted          |
+| metric | gpt-4.1 | human-slop-detector |
+|--------|---------|---------------------|
+| precision | 88.9% | 97.0% |
+| recall | 24.2% | 97.0% |
+| f1 score | 38.1% | 97.0% |
+| accuracy | 74.0% | 98.0% |
+
+_ground truth: what a human (me) thinks is human slop. run `npx tsx scripts/benchmark.ts` to regenerate._
 
 **want to help?** we need more keysmashes from the wild to improve coverage, [open keysmashes.txt and smash your keyboard](https://github.com/yolodex-ai/human-slop-detector/edit/main/keysmashes.txt) - one per line, no questions asked.
 

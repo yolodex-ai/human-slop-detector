@@ -1,0 +1,101 @@
+string,gpt_5.1_is_human_slop,this_library_is_human_slop,human_is_human_slop
+asdkjfhaskjdfh,TRUE,TRUE,TRUE
+SKDJFHSKDJFH,TRUE,TRUE,TRUE
+laskdjflaskdjf,TRUE,TRUE,TRUE
+asjglgjjggskaldhh,TRUE,TRUE,TRUE
+ghjkghjkghjk,FALSE,TRUE,TRUE
+asdfghjkl,FALSE,TRUE,TRUE
+zxcvbnm,FALSE,TRUE,TRUE
+fghjklfghjkl,FALSE,TRUE,TRUE
+asdfasdfasdf,FALSE,TRUE,TRUE
+sksksksksk,FALSE,TRUE,TRUE
+alksjdflaksjdf,TRUE,TRUE,TRUE
+kajsdhfkajsdhf,TRUE,TRUE,TRUE
+dkfjahsdkfjah,TRUE,TRUE,TRUE
+ghfjghfjghfj,FALSE,TRUE,TRUE
+sdfghjklsdfgh,FALSE,TRUE,TRUE
+aaaaaaaaaaaa,FALSE,TRUE,TRUE
+hjkhjkhjkhjk,FALSE,TRUE,TRUE
+sdfgsdfgsdfg,FALSE,TRUE,TRUE
+fghjfghjfghj,FALSE,TRUE,TRUE
+asdasdasdasd,FALSE,TRUE,TRUE
+asdf,FALSE,TRUE,TRUE
+zzzzzzzzz,FALSE,TRUE,TRUE
+xxxxxxxxx,FALSE,TRUE,TRUE
+asdf@asdf.com,FALSE,TRUE,TRUE
+asdfjkl@gmail.com,FALSE,TRUE,TRUE
+asdfgh@yahoo.com,FALSE,TRUE,TRUE
+xjkd82hf@temp.com,FALSE,FALSE,FALSE
+sdfghjk@sdfgh.com,FALSE,TRUE,FALSE
+hjd28ebsgis@gmail.com,FALSE,FALSE,FALSE
+aaaaaaaaaaaaaaaaaaaaa,FALSE,TRUE,TRUE
+asdfasdfasdfasdf,FALSE,TRUE,TRUE
+xkjqzmvpwb,TRUE,FALSE,FALSE
+asdf jkl qwerty hjkl,FALSE,TRUE,TRUE
+asdfgh qwerty zxcvb poiuy,FALSE,TRUE,TRUE
+xkcd qwfp gjluy zxnm bvcx,FALSE,FALSE,TRUE
+asjkdfh laskdjf kajsdhf dkfj,TRUE,TRUE,TRUE
+hjkl hjkl hjkl hjkl hjkl,FALSE,TRUE,TRUE
+javascript,FALSE,FALSE,FALSE
+elonmusk,FALSE,FALSE,FALSE
+breaking,FALSE,FALSE,FALSE
+developers,FALSE,FALSE,FALSE
+photography,FALSE,FALSE,FALSE
+musicproducer,FALSE,FALSE,FALSE
+gamedev,FALSE,FALSE,FALSE
+frontend,FALSE,FALSE,FALSE
+backend,FALSE,FALSE,FALSE
+startup,FALSE,FALSE,FALSE
+throwaway123,FALSE,FALSE,FALSE
+cooluser99,FALSE,FALSE,FALSE
+catslover,FALSE,FALSE,FALSE
+deleted,FALSE,FALSE,FALSE
+testaccount,FALSE,FALSE,FALSE
+test,FALSE,FALSE,FALSE
+fixbug,FALSE,FALSE,FALSE
+wip,FALSE,FALSE,FALSE
+todo,FALSE,FALSE,FALSE
+placeholder123,FALSE,FALSE,FALSE
+temptemp,FALSE,FALSE,FALSE
+foobar,FALSE,FALSE,FALSE
+test@test.com,FALSE,FALSE,FALSE
+john.doe@gmail.com,FALSE,FALSE,FALSE
+user12345@mail.com,FALSE,FALSE,FALSE
+contact@business.org,FALSE,FALSE,FALSE
+"""><script>alert(1)</script>",FALSE,FALSE,FALSE
+; DROP TABLE users;--,FALSE,FALSE,FALSE
+123456789012345678901,FALSE,FALSE,FALSE
+nullnullnullnull,FALSE,FALSE,FALSE
+undefinedundefined,FALSE,FALSE,FALSE
+truetruetrueture,FALSE,FALSE,FALSE
+testingtesting123,FALSE,FALSE,FALSE
+the quick brown fox jumps,FALSE,FALSE,FALSE
+hello world this is a test,FALSE,FALSE,FALSE
+lorem ipsum dolor sit amet,FALSE,FALSE,FALSE
+please help asdfghjkl broken,FALSE,FALSE,FALSE
+contact us for more information,FALSE,FALSE,FALSE
+admin,FALSE,FALSE,FALSE
+root,FALSE,FALSE,FALSE
+password,FALSE,FALSE,FALSE
+username,FALSE,FALSE,FALSE
+email,FALSE,FALSE,FALSE
+login,FALSE,FALSE,FALSE
+signup,FALSE,FALSE,FALSE
+register,FALSE,FALSE,FALSE
+account,FALSE,FALSE,FALSE
+profile,FALSE,FALSE,FALSE
+settings,FALSE,FALSE,FALSE
+dashboard,FALSE,FALSE,FALSE
+welcome,FALSE,FALSE,FALSE
+contact,FALSE,FALSE,FALSE
+support,FALSE,FALSE,FALSE
+nguyen,FALSE,FALSE,FALSE
+zhang,FALSE,FALSE,FALSE
+mueller,FALSE,FALSE,FALSE
+bjork,FALSE,FALSE,FALSE
+krzyzewski,FALSE,FALSE,FALSE
+tchaikovsky,FALSE,FALSE,FALSE
+schwarzenegger,FALSE,FALSE,FALSE
+xing,FALSE,FALSE,FALSE
+patel,FALSE,FALSE,FALSE
+nakamura,FALSE,FALSE,FALSE
