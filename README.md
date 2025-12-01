@@ -47,12 +47,12 @@ detect("asdf@jkl.com");
 
 we tested against like 100 real-world examples from twitter, reddit, github and signup forms:
 
-| metric | gpt-4.1 | human-slop-detector |
-|--------|---------|---------------------|
-| precision | 88.9% | 97.0% |
-| recall | 24.2% | 97.0% |
-| f1 score | 38.1% | 97.0% |
-| accuracy | 74.0% | 98.0% |
+| metric    | gpt-5.1 | human-slop-detector |
+| --------- | ------- | ------------------- |
+| precision | 88.89%  | 96.97%              |
+| recall    | 24.24%  | 96.97%              |
+| f1 score  | 38.10%  | 96.97%              |
+| accuracy  | 74.00%  | 98.00%              |
 
 _ground truth: what a human (me) thinks is human slop. run `npx tsx scripts/benchmark.ts` to regenerate._
 
