@@ -51,11 +51,13 @@ we tested against 100 real-world examples from twitter, reddit, github and signu
 | ---------------------- | -------- | ---------------------------- |
 | twitter keysmashes     | 100%     | emotional keyboard violence  |
 | signup form abuse      | 100%     | `asdf@asdf.com` and friends  |
-| github spam            | 100%     | placeholder text detection   |
-| legitimate text        | 100%     | zero false positives         |
+| lorem ipsum            | 100%     | placeholder text detection   |
+| legitimate text        | 100%     | zero false positives ;)      |
 | human vs bot slop      | 97%      | distinguishing meatbag chaos |
 | multilingual gibberish | 100%     | 20 languages supported       |
 | **overall**            | **100%** | probably overfitted          |
+
+**want to help?** we need more real-world keysmashes from the wild. if you've seen some particularly unhinged keyboard violence on twitter, or your users are submitting creative slop to your forms, [add them to keysmashes.txt](https://github.com/yolodex-ai/human-slop-detector/edit/main/keysmashes.txt) - one keysmash per line, no questions asked.
 
 ## api
 

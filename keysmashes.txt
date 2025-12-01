@@ -1,0 +1,13 @@
+# human keysmash collection
+# add your keysmashes below (one per line)
+# we'll use these to improve detection accuracy
+#
+# format: just the keysmash, nothing else
+# example: asjkdfhaskjdfh
+
+asdfghjkl
+qwertyuiop
+wsadwsadwsad
+asjkdfhaskjdfh
+skdjfhskjdfh
+
